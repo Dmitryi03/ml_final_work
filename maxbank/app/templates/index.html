@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BankSentiment | Оставить отзыв</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 800px;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #4a6bff 0%, #6a11cb 100%);
+            color: white;
+            padding: 25px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo i {
+            font-size: 32px;
+        }
+        
+        .nav {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .nav a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: background 0.3s;
+        }
+        
+        .nav a:hover {
+            background: rgba(255,255,255,0.1);
+        }
+        
+        .nav a.active {
+            background: rgba(255,255,255,0.2);
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .page-title {
+            font-size: 32px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .page-subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #444;
+            font-weight: 500;
+        }
+        
+        select, textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        select:focus, textarea:focus {
+            outline: none;
+            border-color: #4a6bff;
+        }
+        
+        textarea {
+            height: 150px;
+            resize: vertical;
+            font-family: inherit;
+        }
+        
+        .btn-submit {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #4a6bff 0%, #6a11cb 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(74, 107, 255, 0.3);
+        }
+        
+        .result-container {
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 15px;
+            display: none;
+        }
+        
+        .result-container.show {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+        
+        .positive { background: linear-gradient(135deg, #00b09b 0%, #96c93d 100%); color: white; }
+        .neutral { background: linear-gradient(135deg, #ffd89b 0%, #19547b 100%); color: white; }
+        .negative { background: linear-gradient(135deg, #ff416c 0%, #ff4b2b 100%); color: white; }
+        
+        .result-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .sentiment-emoji {
+            font-size: 48px;
+        }
+        
+        .sentiment-text {
+            font-size: 28px;
+            font-weight: 700;
+        }
+        
+        .confidence {
+            font-size: 18px;
+            opacity: 0.9;
+        }
+        
+        .sample-text {
+            margin-top: 15px;
+            padding: 15px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 8px;
+            font-style: italic;
+        }
+        
+        .examples {
+            margin-top: 40px;
+            padding: 25px;
+            background: #f8f9fa;
+            border-radius: 15px;
+        }
+        
+        .examples h3 {
+            margin-bottom: 15px;
+            color: #333;
+        }
+        
+        .example-item {
+            padding: 12px;
+            margin-bottom: 10px;
+            background: white;
+            border-radius: 8px;
+            border-left: 4px solid #4a6bff;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        
+        .example-item:hover {
+            transform: translateX(5px);
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">
+                <i class="fas fa-chart-line"></i>
+                МаксБанк отзыв
+            </div>
+            <div class="nav">
+                <a href="/" class="active"><i class="fas fa-pen"></i> Оставить отзыв</a>
+                <a href="/analytics"><i class="fas fa-chart-bar"></i> Аналитика</a>
+            </div>
+        </div>
+        
+        <div class="content">
+            <h1 class="page-title">Оставить отзыв о банке</h1>
+            
+            <form method="POST" action="/submit_review" onsubmit="return validateForm()">
+                <div class="form-group">
+                    <label for="bank"><i class="fas fa-university"></i> Выберите банк:</label>
+                    <select id="bank" name="bank" required>
+                        <option value="">-- Выберите банк --</option>
+                        <option value="Сбербанк">Сбербанк</option>
+                        <option value="Тинькофф">Тинькофф</option>
+                        <option value="ВТБ">ВТБ</option>
+                        <option value="Альфа-Банк">Альфа-Банк</option>
+                        <option value="Газпромбанк">Газпромбанк</option>
+                        <option value="Другой">Другой банк</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="text"><i class="fas fa-comment-dots"></i> Ваш отзыв:</label>
+                    <textarea id="text" name="text" placeholder="Опишите ваш опыт взаимодействия с банком..." required></textarea>
+                </div>
+                
+                <button type="submit" class="btn-submit">
+                    <i class="fas fa-paper-plane"></i> Отправить 
+                </button>
+            </form>
+        </div>
+    </div>
+    
+    <script>
+        function validateForm() {
+            const text = document.getElementById('text').value.trim();
+            const bank = document.getElementById('bank').value;
+            
+            if (!bank) {
+                alert('Пожалуйста, выберите банк');
+                return false;
+            }
+            
+            if (text.length < 10) {
+                alert('Отзыв должен содержать минимум 10 символов');
+                return false;
+            }
+            
+            return true;
+        }
+        
+        function useExample(element) {
+            const text = element.textContent.split(': ')[1];
+            document.getElementById('text').value = text;
+            document.getElementById('bank').value = 'Тинькофф';
+        }
+    </script>
+</body>
+</html>
