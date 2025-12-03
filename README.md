@@ -14,29 +14,35 @@ REST API: Готовый API для интеграции
 
 Структура проекта
 ```bash
-maxbank/
-├── app.py # Основное Flask приложение
-├── requirements.txt # Зависимости
-├── README.md # Документация
-├── .gitignore # Игнорируемые файлы
-├── training/ # Скрипты обучения модели
-│ └── train_model.py # Обучение нейросети
-└── templates/ # HTML шаблоны
-├── index.html # Клиентская форма
-└── analytics.html # Панель аналитика
+maxbank/      
+├── .gitignore
+├── README.md
+├── requirements.txt
+├── app/
+│   ├── app.py
+│   ├── model/
+│   │   ├── label_encoder.joblib
+│   │   ├── model.keras
+│   │   └── tfidf_vectorizer.pkl
+│   └── templates/
+│       ├── analytics.html
+│       └── index.html
+└── training/
+    └── final_work.py
 ```
-Быстрый старт
-1. Клонирование и установка
+Запуск
 ```bash
-# Клонировать репозиторий
-git clone https://github.com/ваш-логин/bank-sentiment-analyzer.git
-cd bank-sentiment-analyzer
-
-# Создать виртуальное окружение
-python -m venv venv
-
-# Активировать (Windows)
-venv\Scripts\activate
-
-# Установить зависимости
-pip install -r requirements.txt
+1. Распаковать архив
+2. Открыть терминал в этой папке 
+3. Создать 
+   python -m venv venv
+4. Активировать окружение 
+   venv\Scripts\activate
+5. Установить зависимости
+   pip install -r requirements.txt
+6. Перейти в папку app и запустить
+   cd app
+   python app.py
+7. Открыть в браузере:
+   http://localhost:5000
+   http://localhost:5000/analytics
