@@ -20,7 +20,6 @@ REST API: Готовый API для интеграции
 ```bash
 maxbank/      
 ├── .gitignore
-├── README.md
 ├── requirements.txt
 ├── app/
 │   ├── app.py
@@ -37,16 +36,16 @@ maxbank/
 Запуск
 ```bash
 1. Распаковать архив
-2. Открыть терминал в этой папке 
+2. Открыть терминал в этой папке
+    cd maxbank
 3. Создать 
-   python -m venv venv
+    python -m venv .venv
 4. Активировать окружение 
-   venv\Scripts\activate
+    .venv\Scripts\activate
 5. Установить зависимости
-   pip install -r requirements.txt
+    pip install -r requirements.txt
 6. Перейти в папку app и запустить
-   cd app
-   python app.py
+    cd app
+    python app.py
 7. Открыть в браузере:
-   http://localhost:5000
-   http://localhost:5000/analytics
+    http://localhost:5000
